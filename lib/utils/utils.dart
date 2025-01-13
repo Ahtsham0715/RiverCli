@@ -2,7 +2,7 @@ import 'dart:io';
 
 class Utils {
   static void printUsage() {
-    print('Usage: riverpod_cli create page:<page_name> --path <path>');
+    print('Usage: river_cli create page:<page_name> --path <path>');
   }
 
   static void ensureDependencies() {

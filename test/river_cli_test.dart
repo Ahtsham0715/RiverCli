@@ -27,7 +27,7 @@ void main() {
       // Execute the script
       Process.runSync(
         'dart',
-        ['run', 'bin/riverpod_cli.dart', featureName],
+        ['run', 'bin/river_cli.dart', featureName],
       );
 
       // Verify folders
@@ -41,7 +41,7 @@ void main() {
       // Execute the script
       Process.runSync(
         'dart',
-        ['run', 'bin/riverpod_cli.dart', featureName],
+        ['run', 'bin/river_cli.dart', featureName],
       );
 
       // Verify files

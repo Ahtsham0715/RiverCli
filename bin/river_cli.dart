@@ -1,6 +1,6 @@
-import 'package:riverpod_cli/command/create/create_page.dart';
-import 'package:riverpod_cli/command/create/project_init.dart';
-import 'package:riverpod_cli/utils/utils.dart';
+import 'package:river_cli/command/create/create_page.dart';
+import 'package:river_cli/command/create/project_init.dart';
+import 'package:river_cli/utils/utils.dart';
 
 void main(List<String> arguments) {
   print('Arguments received: $arguments');

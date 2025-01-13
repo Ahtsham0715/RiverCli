@@ -5,8 +5,8 @@ A command-line tool to automate the creation of a feature structure in a Flutter
 
 ## Features
 
-- **Generate Project Structure**: Initialize your project with a base structure for managing features using `riverpod_cli init`.
-- **Generate Page Feature**: Easily create a new feature page with a controller, binding, and view using `riverpod_cli create page:<page_name>`.
+- **Generate Project Structure**: Initialize your project with a base structure for managing features using `river_cli init`.
+- **Generate Page Feature**: Easily create a new feature page with a controller, binding, and view using `river_cli create page:<page_name>`.
 - **Generate Folder Structure**: Automatically creates folders like `controllers`, `bindings`, and `views` for each new feature.
 - **Generate Files**: Creates the necessary Dart files with basic boilerplate code, including a controller, binding, and view.
 - **Integrate with GoRouter**: Adds the new page as a route in the `GoRouter` configuration, along with the corresponding import.
@@ -19,7 +19,7 @@ A command-line tool to automate the creation of a feature structure in a Flutter
 Ensure you have Dart and Flutter installed. Navigate to the project folder and run:
 
 ```bash
-dart pub global activate riverpod_cli
+dart pub global activate river_cli
 ```
 
 
@@ -35,7 +35,7 @@ Once everything is set up, you can use the following commands.
 This command initializes the project structure by creating the necessary folders and configurations.
 
 ```bash
-riverpod_cli init
+river_cli init
 ```
 
 This will generate the following structure:
@@ -54,25 +54,25 @@ You can modify the generated structure as needed for your project.
 This command generates the feature for a specific page, including the controller, binding, and view files, as well as updating the route configuration.
 
 ```bash
-riverpod_cli create page:<page_name> --path lib/features
+river_cli create page:<page_name> --path lib/features
 ```
 
 OR
 
 ```bash
-riverpod_cli create page:<page_name>
+river_cli create page:<page_name>
 ```
 
 For example, if you want to create a feature called `profile`, run:
 
 ```bash
-riverpod_cli create page:profile --path lib/features
+river_cli create page:profile --path lib/features
 ```
 
 OR
 
 ```bash
-riverpod_cli create page:profile
+river_cli create page:profile
 ```
 
 This will generate the following structure:
@@ -92,7 +92,7 @@ It will also add the appropriate route to the `GoRouter` configuration in `lib/r
 This command generates the feature for a specific page, including the controller, binding, and view files without route registration.
 
 ```bash
-riverpod_cli create screen:<page_name> --path lib/features
+river_cli create screen:<page_name> --path lib/features
 ```
 
 ## Example

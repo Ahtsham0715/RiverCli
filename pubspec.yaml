@@ -1,7 +1,7 @@
-name: riverpod_cli
+name: river_cli
 description: A CLI tool for generating Riverpod feature structures in Flutter projects.
 version: 1.0.3
-repository: https://github.com/Ahtsham0715/riverpod_cli.git
+repository: https://github.com/Ahtsham0715/river_cli.git
 
 environment:
   sdk: ^3.3.4
@@ -18,4 +18,4 @@ dev_dependencies:
   test: ^1.24.0
 
 executables:
-  riverpod_cli: riverpod_cli
+  river_cli: river_cli
