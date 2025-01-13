@@ -40,12 +40,28 @@ river_cli init
 
 This will generate the following structure:
 
-```
-lib/features/
-  ├── controllers/
-  ├── bindings/
-  └── views/
-```
+
+├── lib
+│   ├── app
+│   │   ├── config                # Configuration files and constants
+│   │   ├── core                  # Core functionalities and base classes
+│   │   ├── extensions            # Extension methods for cleaner code
+│   │   ├── shared_widgets        # Reusable widgets across the app
+│   │   ├── utils                 # Utility functions and helpers
+│   │   ├── routes                # Application route definitions
+│   │
+│   ├── data
+│   │   ├── models                # Data models for the app
+│   │   ├── provider              # Data providers for API or local data
+│   │   │   ├── network           # Network-related services
+│   │   ├── repositories          # Repositories for data handling logic
+│   │
+│   ├── presentation
+│   │   ├── home                  # Home module
+│   │   │   ├── controllers       # State management for Home module
+│   │   │   ├── views             # UI for Home module
+│   │   │   ├── bindings          # Dependency bindings for Home module
+
 
 You can modify the generated structure as needed for your project.
 
@@ -77,12 +93,12 @@ river_cli create page:profile
 
 This will generate the following structure:
 
-```
+
 lib/features/profile/
   ├── controllers/profile_controller.dart
   ├── bindings/profile_binding.dart
   └── views/profile_view.dart
-```
+
 
 It will also add the appropriate route to the `GoRouter` configuration in `lib/routes.dart`.
 
