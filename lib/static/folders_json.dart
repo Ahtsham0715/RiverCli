@@ -1,0 +1,16 @@
+final folders = [
+  'lib/app/config',
+  'lib/app/core',
+  'lib/app/extensions',
+  'lib/app/shared_widgets',
+  'lib/app/utils',
+  'lib/data',
+  'lib/data/models',
+  'lib/data/provider',
+  'lib/data/provider/network',
+  'lib/data/repositories',
+  'lib/presentation/home/controllers',
+  'lib/presentation/home/views',
+  'lib/presentation/home/bindings',
+  'lib/app/routes',
+];
