@@ -318,7 +318,7 @@ class HomeView extends StatelessWidget {
                 final counter = ref.watch(homeControllerProvider);
                 return Text(
                   'Counter: \$counter',
-                  style: Theme.of(context).textTheme.headline4,
+                  style: Theme.of(context).textTheme.headlineMedium,
                 );
               },
             ),
