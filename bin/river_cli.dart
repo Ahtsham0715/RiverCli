@@ -1,7 +1,15 @@
+import 'package:river_cli/command/create/create_options.dart';
 import 'package:river_cli/command/create/create_page.dart';
+import 'package:river_cli/command/create/generators.dart';
 import 'package:river_cli/command/create/init_options.dart';
 import 'package:river_cli/command/create/project_init.dart';
+import 'package:river_cli/command/doctor/doctor.dart';
+import 'package:river_cli/command/generate/generate_routes.dart';
+import 'package:river_cli/command/remove/remove_feature.dart';
+import 'package:river_cli/command/skill/install_skill.dart';
+import 'package:river_cli/utils/project.dart';
 import 'package:river_cli/utils/utils.dart';
+import 'package:river_cli/version.dart';
 
 void main(List<String> arguments) {
   if (arguments.isEmpty) {
@@ -10,40 +18,98 @@ void main(List<String> arguments) {
   }
 
   final command = arguments[0];
+  final rest = arguments.sublist(1);
 
-  if (command == 'create') {
-    final pageArgument = arguments.firstWhere(
-      (arg) => arg.startsWith('page:') || arg.startsWith('screen:'),
-      orElse: () => '',
-    );
+  switch (command) {
+    case 'create':
+      _runCreate(arguments, rest);
+      break;
+    case 'init':
+      runInit(InitOptions.parse(rest));
+      break;
+    case 'skill':
+      runSkill(rest);
+      break;
+    case 'doctor':
+      runDoctor();
+      break;
+    case 'generate':
+    case 'gen':
+      _runGenerate(rest);
+      break;
+    case 'remove':
+    case 'rm':
+      runRemove(rest);
+      break;
+    case '--version':
+    case '-v':
+    case 'version':
+      print('river_cli $kRiverCliVersion');
+      break;
+    case '--help':
+    case '-h':
+    case 'help':
+      Utils.printUsage();
+      break;
+    default:
+      print('Unknown command "$command".\n');
+      Utils.printUsage();
+  }
+}
 
-    if (pageArgument.isEmpty) {
-      print(
-          'Error: Missing page command. Usage: river_cli create page:<page_name> --path <path>');
-      return;
-    }
+/// Dispatches the `create <kind>:<name>` family. `page`/`screen` keep their
+/// original behavior; the new kinds (`model`, `repository`, `widget`,
+/// `feature`) use the shared option parser and generators.
+void _runCreate(List<String> arguments, List<String> rest) {
+  final opts = CreateOptions.parse(rest);
 
-    final pageName = pageArgument.split(':')[1];
-    if (pageName.isEmpty) {
-      print(
-          'Error: Page name is missing. Usage: river_cli create page:<page_name> --path <path>');
-      return;
-    }
+  if (!opts.isValid) {
+    print('Error: missing target. '
+        'Usage: river_cli create <page|screen|model|repository|widget|feature>:<name>');
+    return;
+  }
 
-    // Check for optional --path argument
-    String path = 'lib/presentation';
-    final pathIndex = arguments.indexOf('--path');
-    if (pathIndex != -1 && arguments.length > pathIndex + 1) {
-      path = arguments[pathIndex + 1];
-    }
-    Utils.ensureDependencies();
-    CreatePage createPage = CreatePage();
-    createPage.createPageWithRoute(pageName, path, arguments);
-  } else if (command == 'init') {
-    final options = InitOptions.parse(arguments.sublist(1));
-    runInit(options);
-  } else {
-    print('Unknown command "$command".');
-    Utils.printUsage();
+  if (!ProjectContext.isFlutterRoot) {
+    print('Error: pubspec.yaml not found. '
+        'Run this command in the root of a Flutter project.');
+    return;
+  }
+
+  switch (opts.kind) {
+    case 'page':
+    case 'screen':
+      // Preserve the original page/screen code path and route handling.
+      Utils.ensureDependencies();
+      CreatePage().createPageWithRoute(opts.name, opts.path, arguments);
+      break;
+    case 'model':
+      createModel(opts, ProjectContext.detect());
+      break;
+    case 'repository':
+    case 'repo':
+      createRepository(opts, ProjectContext.detect());
+      break;
+    case 'widget':
+      createWidget(opts, ProjectContext.detect());
+      break;
+    case 'feature':
+      createFeature(opts, ProjectContext.detect());
+      break;
+    default:
+      print('Unknown create target "${opts.kind}". '
+          'Valid targets: page, screen, model, repository, widget, feature.');
+  }
+}
+
+/// Dispatches `generate <what>`. Currently supports `routes`.
+void _runGenerate(List<String> rest) {
+  final what = rest.isNotEmpty ? rest.first : '';
+  switch (what) {
+    case 'routes':
+    case 'route':
+      runGenerateRoutes(rest.sublist(1));
+      break;
+    default:
+      print('Usage: river_cli generate routes [--dry-run]');
   }
 }

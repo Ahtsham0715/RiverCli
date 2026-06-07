@@ -7,7 +7,11 @@ final Module storageModule = Module(
   title: 'Storage (SharedPreferences + secure storage)',
   description:
       'LocalDB typed SharedPreferences wrapper with Riverpod providers, plus SecureStorageService (flutter_secure_storage).',
-  packages: ['shared_preferences', 'flutter_secure_storage', 'flutter_riverpod'],
+  packages: [
+    'shared_preferences',
+    'flutter_secure_storage',
+    'flutter_riverpod'
+  ],
   dependsOn: ['config'],
   folders: ['lib/data/provider/local_storage', 'lib/app/services'],
   files: {

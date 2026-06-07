@@ -74,7 +74,7 @@ final GoRouter router = GoRouter(
 
   void createPage(String pageName, String path, String routesPath,
       List<dynamic> arguments) {
-  final className = _capitalize(_toCamelCase(pageName));
+    final className = _capitalize(_toCamelCase(pageName));
     final basePath = '$path/$pageName';
 
     print('Creating page: $pageName at path: $basePath');
@@ -203,7 +203,7 @@ final ${pageName}ControllerProvider =
       String pageName, String routesPath, List<dynamic> arguments) {
     final appRoutesFile = File('$routesPath/app_routes.dart');
     final routePageFile = File('$routesPath/route_page.dart');
-  final className = _capitalize(_toCamelCase(pageName));
+    final className = _capitalize(_toCamelCase(pageName));
 
     // Update app_routes.dart
     final appRoutesContent = appRoutesFile.readAsStringSync();
@@ -252,7 +252,8 @@ final ${pageName}ControllerProvider =
     if (input.isEmpty) return input;
     return input
         .split('_')
-        .map((word) => word.isNotEmpty ? word[0].toUpperCase() + word.substring(1) : '')
+        .map((word) =>
+            word.isNotEmpty ? word[0].toUpperCase() + word.substring(1) : '')
         .join();
   }
 }
