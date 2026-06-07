@@ -31,8 +31,7 @@ class InitOptions {
   });
 
   /// True when no explicit selector was given and prompts should be shown.
-  bool get wantsInteractive =>
-      !minimal && !all && modules.isEmpty && !yes;
+  bool get wantsInteractive => !minimal && !all && modules.isEmpty && !yes;
 
   /// Resolves the explicit selection, or `null` to signal "ask interactively".
   /// Returned keys are the *optional* module keys (core is always added later).

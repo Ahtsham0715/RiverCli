@@ -4,10 +4,35 @@ class Utils {
   static void printUsage() {
     print('Usage: river_cli <command>\n'
         '\n'
-        'Commands:\n'
-        '  init [options]              Scaffold reusable lib/ structure & packages\n'
-        '  create page:<name>          Create a feature page + go_router route\n'
-        '  create screen:<name>        Create a feature page without a route\n'
+        'Project:\n'
+        '  init [options]               Scaffold reusable lib/ structure & packages\n'
+        '  doctor                       Health-check the project, modules & deps\n'
+        '  skill [--global|--print]     Install the Claude Code skill for AI workflows\n'
+        '  generate routes              Rebuild routing from discovered features\n'
+        '\n'
+        'Generators (accept --path, --force, --dry-run):\n'
+        '  create page:<name>           Feature page + go_router route\n'
+        '  create screen:<name>         Feature page without a route\n'
+        '  create feature:<name>        Full CRUD: model + repo + controller + view + route\n'
+        '  create model:<name>          Data class (--fields "a:String, b:int?" or --json/--from-json)\n'
+        '  create repository:<name>     Repository wired to the network layer\n'
+        '  create widget:<name>         Reusable widget in the shared widgets folder\n'
+        '  (model/feature also accept --with-test to emit a round-trip test)\n'
+        '\n'
+        'Maintenance:\n'
+        '  remove feature:<name>        Delete a feature, its model/repo & route\n'
+        '  remove page:<name>           Delete a page & its route\n'
+        '\n'
+        'Other:\n'
+        '  version                      Print the CLI version\n'
+        '  help                         Show this help\n'
+        '\n'
+        'Examples:\n'
+        '  river_cli create model:todo --fields "title:String, done:bool, due:DateTime?"\n'
+        '  river_cli create model:user --json \'{"id":1,"name":"Ada","roles":["admin"]}\'\n'
+        '  river_cli create feature:product --fields "name:String, price:double" --with-test\n'
+        '  river_cli generate routes\n'
+        '  river_cli remove feature:product\n'
         '\n'
         'Run "river_cli init --help" for init options.');
   }
@@ -103,8 +128,8 @@ class Utils {
     if (!pubspec.existsSync()) return;
 
     final existing = _existingTopLevelDeps(pubspec.readAsStringSync());
-    final newDeps =
-        deps.toSet().where((p) => !existing.contains(p)).toList()..sort();
+    final newDeps = deps.toSet().where((p) => !existing.contains(p)).toList()
+      ..sort();
     final newDevDeps =
         devDeps.toSet().where((p) => !existing.contains(p)).toList()..sort();
 
@@ -137,8 +162,7 @@ class Utils {
   }
 
   static void _runPubAdd(List<String> packageArgs) {
-    final result =
-        Process.runSync('flutter', ['pub', 'add', ...packageArgs]);
+    final result = Process.runSync('flutter', ['pub', 'add', ...packageArgs]);
     if (result.stdout.toString().trim().isNotEmpty) {
       stdout.write(result.stdout);
     }
